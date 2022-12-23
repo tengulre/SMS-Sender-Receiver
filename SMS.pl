@@ -4,27 +4,7 @@
 #./SMS.pl <Serial port> 
 #
 #Changlog: 
-#
-##2008-09-28:
-#  1. 修复有时候截取汉字的时候出现错误的问题！（有时候长度会截取文字的一半）
-#2008-06-16:
-#  1. 修正了发送短信中英文和数字混合出现不能发送的错误， 主要修改了，OutSendSMSMessage的函数 
-#2008-02-20:
-#  1. 修改了发送消息的方式
-#  #步骤：
-#  #    1、 比较相邻两条的phone和realname(源号码），如果相同，比较时间戳，在规定的时间间隔外则发送。
-#  #    2、 如果相邻两条的phone和realname(源号码）不同则发送。
-#2007-12-14:
-#  1.修改了查询数据库的条件， 去掉了send_time的判断。
-#  2.修改了Setup.sh为install.sh
-#  3.新增了uninstall.sh为来删除SMSServer
-#2007-12-05:
-#  1.新增了Debug函数
-#
-#2007-12-04:
-#  1.开始着手开发Megaeyes SMS Server.<zth>
-#  2.编写基础模块<zth>
-#  3.编写安装模块和开始停止模块（setup.sh,start.sh,stop.sh) <zth>
+
 
 
 
@@ -86,13 +66,7 @@ die "Spawn Error: $!\n" unless $cu;
 
 $cu->log_stdout(1);
 
-# 注释: 2008年07月08日 zth
-#my $v = &CheckRegisterInfo();
-#if(!$v){
-#   &Debug(1, "Sorry! you are not a availd user, please contact owner support department!\n");
-#   print "License is not availd! Please link owner http://www.megaeyes.com \n";
-#   exit;
-#}
+
 #初始化短信设备.
 
 &PrepareModem();
