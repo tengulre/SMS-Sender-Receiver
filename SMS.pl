@@ -1,33 +1,30 @@
 #!/usr/bin/perl 
-#Copyright (C) 2007 Megaeyes.com 
-#Description: SMS Server for linux toolkit.
-#
-#Author: zth < ZhangTengHong@megaeyes.com >
+
 #
 #./SMS.pl <Serial port> 
 #
 #Changlog: 
 #
 ##2008-09-28:
-#  1. ĞŞ¸´ÓĞÊ±ºò½ØÈ¡ºº×ÖµÄÊ±ºò³öÏÖ´íÎóµÄÎÊÌâ£¡£¨ÓĞÊ±ºò³¤¶È»á½ØÈ¡ÎÄ×ÖµÄÒ»°ë£©
+#  1. ä¿®å¤æœ‰æ—¶å€™æˆªå–æ±‰å­—çš„æ—¶å€™å‡ºç°é”™è¯¯çš„é—®é¢˜ï¼ï¼ˆæœ‰æ—¶å€™é•¿åº¦ä¼šæˆªå–æ–‡å­—çš„ä¸€åŠï¼‰
 #2008-06-16:
-#  1. ĞŞÕıÁË·¢ËÍ¶ÌĞÅÖĞÓ¢ÎÄºÍÊı×Ö»ìºÏ³öÏÖ²»ÄÜ·¢ËÍµÄ´íÎó£¬ Ö÷ÒªĞŞ¸ÄÁË£¬OutSendSMSMessageµÄº¯Êı 
+#  1. ä¿®æ­£äº†å‘é€çŸ­ä¿¡ä¸­è‹±æ–‡å’Œæ•°å­—æ··åˆå‡ºç°ä¸èƒ½å‘é€çš„é”™è¯¯ï¼Œ ä¸»è¦ä¿®æ”¹äº†ï¼ŒOutSendSMSMessageçš„å‡½æ•° 
 #2008-02-20:
-#  1. ĞŞ¸ÄÁË·¢ËÍÏûÏ¢µÄ·½Ê½
-#  #²½Öè£º
-#  #    1¡¢ ±È½ÏÏàÁÚÁ½ÌõµÄphoneºÍrealname(Ô´ºÅÂë£©£¬Èç¹ûÏàÍ¬£¬±È½ÏÊ±¼ä´Á£¬ÔÚ¹æ¶¨µÄÊ±¼ä¼ä¸ôÍâÔò·¢ËÍ¡£
-#  #    2¡¢ Èç¹ûÏàÁÚÁ½ÌõµÄphoneºÍrealname(Ô´ºÅÂë£©²»Í¬Ôò·¢ËÍ¡£
+#  1. ä¿®æ”¹äº†å‘é€æ¶ˆæ¯çš„æ–¹å¼
+#  #æ­¥éª¤ï¼š
+#  #    1ã€ æ¯”è¾ƒç›¸é‚»ä¸¤æ¡çš„phoneå’Œrealname(æºå·ç ï¼‰ï¼Œå¦‚æœç›¸åŒï¼Œæ¯”è¾ƒæ—¶é—´æˆ³ï¼Œåœ¨è§„å®šçš„æ—¶é—´é—´éš”å¤–åˆ™å‘é€ã€‚
+#  #    2ã€ å¦‚æœç›¸é‚»ä¸¤æ¡çš„phoneå’Œrealname(æºå·ç ï¼‰ä¸åŒåˆ™å‘é€ã€‚
 #2007-12-14:
-#  1.ĞŞ¸ÄÁË²éÑ¯Êı¾İ¿âµÄÌõ¼ş£¬ È¥µôÁËsend_timeµÄÅĞ¶Ï¡£
-#  2.ĞŞ¸ÄÁËSetup.shÎªinstall.sh
-#  3.ĞÂÔöÁËuninstall.shÎªÀ´É¾³ıSMSServer
+#  1.ä¿®æ”¹äº†æŸ¥è¯¢æ•°æ®åº“çš„æ¡ä»¶ï¼Œ å»æ‰äº†send_timeçš„åˆ¤æ–­ã€‚
+#  2.ä¿®æ”¹äº†Setup.shä¸ºinstall.sh
+#  3.æ–°å¢äº†uninstall.shä¸ºæ¥åˆ é™¤SMSServer
 #2007-12-05:
-#  1.ĞÂÔöÁËDebugº¯Êı
+#  1.æ–°å¢äº†Debugå‡½æ•°
 #
 #2007-12-04:
-#  1.¿ªÊ¼×ÅÊÖ¿ª·¢Megaeyes SMS Server.<zth>
-#  2.±àĞ´»ù´¡Ä£¿é<zth>
-#  3.±àĞ´°²×°Ä£¿éºÍ¿ªÊ¼Í£Ö¹Ä£¿é£¨setup.sh,start.sh,stop.sh) <zth>
+#  1.å¼€å§‹ç€æ‰‹å¼€å‘Megaeyes SMS Server.<zth>
+#  2.ç¼–å†™åŸºç¡€æ¨¡å—<zth>
+#  3.ç¼–å†™å®‰è£…æ¨¡å—å’Œå¼€å§‹åœæ­¢æ¨¡å—ï¼ˆsetup.sh,start.sh,stop.sh) <zth>
 
 
 
@@ -89,20 +86,20 @@ die "Spawn Error: $!\n" unless $cu;
 
 $cu->log_stdout(1);
 
-# ×¢ÊÍ: 2008Äê07ÔÂ08ÈÕ zth
+# æ³¨é‡Š: 2008å¹´07æœˆ08æ—¥ zth
 #my $v = &CheckRegisterInfo();
 #if(!$v){
 #   &Debug(1, "Sorry! you are not a availd user, please contact owner support department!\n");
 #   print "License is not availd! Please link owner http://www.megaeyes.com \n";
 #   exit;
 #}
-#³õÊ¼»¯¶ÌĞÅÉè±¸.
+#åˆå§‹åŒ–çŸ­ä¿¡è®¾å¤‡.
 
 &PrepareModem();
 &ConnectMySQL($SMS->{MySQLHost}, $SMS->{MySQLDatabase}, $SMS->{UserName}, $SMS->{Password});
 my $prevtime = 0;
 while (1) {
-    #&GetMessages(); //×¢ÊÍ½ÓÊÕ¶ÌĞÅ¹¦ÄÜ
+    #&GetMessages(); //æ³¨é‡Šæ¥æ”¶çŸ­ä¿¡åŠŸèƒ½
     my $currtime = time;
     if ($currtime - $prevtime >= $SMS->{CheckIntervalTime}) {
         &Debug(10, "Checking new short messages from MySQL database ");
@@ -113,7 +110,7 @@ while (1) {
 }
 
 
-#¼ì²éÈí¼şµÄºÏ·¨ĞÔ
+#æ£€æŸ¥è½¯ä»¶çš„åˆæ³•æ€§
 sub CheckRegisterInfo {
    my $body;
    my $hwaddr;
@@ -156,24 +153,24 @@ sub CheckRegisterInfo {
   
 }
 
-#Á¬½ÓMySQLÊı¾İ¿â
+#è¿æ¥MySQLæ•°æ®åº“
 sub ConnectMySQL {
    my ($host, $database, $username, $password ) = @_;
    $dbh = DBI->connect("DBI:mysql:database=$database:$host", "$username", "$password", {RaiseError => 1});
    die "Connect MySQL Server ERROR: $!\n" unless $dbh;
    &Debug(1, "Connect to MySQL database $host successful!\n");
 
-   #ÉèÖÃÖĞÎÄ×Ö·û¼¯.
+   #è®¾ç½®ä¸­æ–‡å­—ç¬¦é›†.
    my $sth = $dbh->prepare('SET NAMES \'gbk\'');
    $sth->execute();
 }
 
 
-#¼ì²éĞÂµÄ¶ÌÏûÏ¢´ÓMySQLÊı¾İ¿â
+#æ£€æŸ¥æ–°çš„çŸ­æ¶ˆæ¯ä»MySQLæ•°æ®åº“
 #SELECT send_id, phone, content, sendcounter ,realname, createtime FROM sendqueue WHERE status=0 ORDER BY phone, realname, createtime 
-#²½Öè£º
-#    1¡¢ ±È½ÏÏàÁÚÁ½ÌõµÄphoneºÍrealname(Ô´ºÅÂë£©£¬Èç¹ûÏàÍ¬£¬±È½ÏÊ±¼ä´Á£¬ÔÚ¹æ¶¨µÄÊ±¼ä¼ä¸ôÍâÔò·¢ËÍ¡£
-#    2¡¢ Èç¹ûÏàÁÚÁ½ÌõµÄphoneºÍrealname(Ô´ºÅÂë£©²»Í¬Ôò·¢ËÍ¡£
+#æ­¥éª¤ï¼š
+#    1ã€ æ¯”è¾ƒç›¸é‚»ä¸¤æ¡çš„phoneå’Œrealname(æºå·ç ï¼‰ï¼Œå¦‚æœç›¸åŒï¼Œæ¯”è¾ƒæ—¶é—´æˆ³ï¼Œåœ¨è§„å®šçš„æ—¶é—´é—´éš”å¤–åˆ™å‘é€ã€‚
+#    2ã€ å¦‚æœç›¸é‚»ä¸¤æ¡çš„phoneå’Œrealname(æºå·ç ï¼‰ä¸åŒåˆ™å‘é€ã€‚
 sub CheckNewMessageFromMySQL {
    die "Connect to MySQL database Error !\n" unless $dbh;
    my $curtime = &GetYYYYMMDDDateFormat();
@@ -193,10 +190,10 @@ sub CheckNewMessageFromMySQL {
        if ( $oldphone == $resphone && 
            $oldrealname == $resrealname &&
              (&SubTractionTwoDateTime($oldtime, $restime) < $SMS->{CheckTwoSameRecordTime})) {
-         #±íÊ¾×î½üÓĞÏàÍ¬µÄ¼ÇÂ¼ÒÑ¾­´¦Àí£¬ËùÒÔ²»ÔÙ´¦Àí£¬Ö±½ÓÉ¾³ı¡£
-         #¸üĞÂ·¢ËÍ×´Ì¬
+         #è¡¨ç¤ºæœ€è¿‘æœ‰ç›¸åŒçš„è®°å½•å·²ç»å¤„ç†ï¼Œæ‰€ä»¥ä¸å†å¤„ç†ï¼Œç›´æ¥åˆ é™¤ã€‚
+         #æ›´æ–°å‘é€çŠ¶æ€
          #&UpdateSMSState2MySQL($res->{'send_id'}, 4);
-         #ÒÆ¶¯Êı¾İµ½·¢ËÍÀúÊ·±í sendqueue_history
+         #ç§»åŠ¨æ•°æ®åˆ°å‘é€å†å²è¡¨ sendqueue_history
 		
          &CopySendQueueDate2SendHistory($res->{'send_id'});
          &DeleteRecordFromMySQL($res->{'send_id'});
@@ -204,7 +201,7 @@ sub CheckNewMessageFromMySQL {
          next;
        }
 
-      #Èç¹û×Ö¶ÎphoneºÍrealnameºÍÏÈÇ°µÄ¼ÇÂ¼ÏàÍ¬£¬Ôò¸üĞÂÊ±¼ä£¬·ñÔò¸üĞÂÕû¸ö¼ÇÂ¼¡£
+      #å¦‚æœå­—æ®µphoneå’Œrealnameå’Œå…ˆå‰çš„è®°å½•ç›¸åŒï¼Œåˆ™æ›´æ–°æ—¶é—´ï¼Œå¦åˆ™æ›´æ–°æ•´ä¸ªè®°å½•ã€‚
       if ( $oldphone == $resphone && $oldrealname == $resrealname ) {
             $oldtime = $restime;
       }else {
@@ -213,7 +210,7 @@ sub CheckNewMessageFromMySQL {
            $oldtime = $restime;
       }
       
-      #Ã»ÓĞ¹ú¼Ò±íÊ¾Ôò¼ÓÈë¹ú¼Ò±íÊ¾¡£
+      #æ²¡æœ‰å›½å®¶è¡¨ç¤ºåˆ™åŠ å…¥å›½å®¶è¡¨ç¤ºã€‚
       $phone = $res->{'phone'};  
       if (index($phone, '+86', 0) == -1){
           $phone = "+86".$phone;
@@ -225,7 +222,7 @@ sub CheckNewMessageFromMySQL {
       $curlencontent = 0;
       
       do{
-       #¸üĞÂ×´Ì¬ÎªÕıÔÚ·¢ËÍÖĞ...
+       #æ›´æ–°çŠ¶æ€ä¸ºæ­£åœ¨å‘é€ä¸­...
         &UpdateSMSState2MySQL($res->{'send_id'}, 4);
         &Debug(2, "src content length is  ".length($res->{'content'}));
         my $offset = 0;
@@ -238,7 +235,7 @@ sub CheckNewMessageFromMySQL {
           $srclencontent = length($res->{'content'});
           ($hexcode, $hexlen) =&Text2PDUFormat($res->{'content'});
           
-          #¶ÌĞÅÄÚÈİ³¬¹ı70¸ö×Ö·û.
+          #çŸ­ä¿¡å†…å®¹è¶…è¿‡70ä¸ªå­—ç¬¦.
           #&Debug(2, "Setting the max length limit ( $SMS->{SplitFlag} )");
           do{
              #print("offset $offset, total length ". length($res->{'content'}));
@@ -255,7 +252,7 @@ sub CheckNewMessageFromMySQL {
            $content = $res->{'content'};
            $sendstatus = &OutSendSMSMessage({To => $phone, Text => $content});
         }
-        #¼ÙÈç·¢ËÍÊ§°ÜÔòÅĞ¶ÏÖØÊÔ´ÎÊı
+        #å‡å¦‚å‘é€å¤±è´¥åˆ™åˆ¤æ–­é‡è¯•æ¬¡æ•°
         if (!$sendstatus) {
            $retrycounter ++;
            sleep 3;
@@ -264,9 +261,9 @@ sub CheckNewMessageFromMySQL {
        }until ( $sendstatus || ($retrycounter > $res->{'sendcounter'} ))
        
 
-       #¸üĞÂ·¢ËÍ×´Ì¬
+       #æ›´æ–°å‘é€çŠ¶æ€
        &UpdateSMSState2MySQL($res->{'send_id'}, ($sendstatus ? 1: 2));
-       #ÒÆ¶¯Êı¾İµ½·¢ËÍÀúÊ·±í sendqueue_history
+       #ç§»åŠ¨æ•°æ®åˆ°å‘é€å†å²è¡¨ sendqueue_history
        &CopySendQueueDate2SendHistory($res->{'send_id'});
        &DeleteRecordFromMySQL($res->{'send_id'});
     }
@@ -274,11 +271,11 @@ sub CheckNewMessageFromMySQL {
 
 }
 
-#¼ì²éĞÂµÄ¶ÌÏûÏ¢´ÓMySQLÊı¾İ¿â
+#æ£€æŸ¥æ–°çš„çŸ­æ¶ˆæ¯ä»MySQLæ•°æ®åº“
 #SELECT send_id, phone, content, sendcounter ,realname, createtime FROM sendqueue WHERE status=0 ORDER BY phone, realname, createtime 
-#²½Öè£º
-#    1¡¢ ±È½ÏÏàÁÚÁ½ÌõµÄphoneºÍrealname(Ô´ºÅÂë£©£¬Èç¹ûÏàÍ¬£¬±È½ÏÊ±¼ä´Á£¬ÔÚ¹æ¶¨µÄÊ±¼ä¼ä¸ôÍâÔò·¢ËÍ¡£
-#    2¡¢ Èç¹ûÏàÁÚÁ½ÌõµÄphoneºÍrealname(Ô´ºÅÂë£©²»Í¬Ôò·¢ËÍ¡£
+#æ­¥éª¤ï¼š
+#    1ã€ æ¯”è¾ƒç›¸é‚»ä¸¤æ¡çš„phoneå’Œrealname(æºå·ç ï¼‰ï¼Œå¦‚æœç›¸åŒï¼Œæ¯”è¾ƒæ—¶é—´æˆ³ï¼Œåœ¨è§„å®šçš„æ—¶é—´é—´éš”å¤–åˆ™å‘é€ã€‚
+#    2ã€ å¦‚æœç›¸é‚»ä¸¤æ¡çš„phoneå’Œrealname(æºå·ç ï¼‰ä¸åŒåˆ™å‘é€ã€‚
 sub CheckNewMessageFromMySQL1 {
    die "Connect to MySQL database Error !\n" unless $dbh;
    my $curtime = &GetYYYYMMDDDateFormat();
@@ -297,17 +294,17 @@ sub CheckNewMessageFromMySQL1 {
        if ( $oldphone == $resphone && 
            $oldrealname == $resrealname &&
              (&SubTractionTwoDateTime($oldtime, $restime) < $SMS->{CheckTwoSameRecordTime})) {
-         #±íÊ¾×î½üÓĞÏàÍ¬µÄ¼ÇÂ¼ÒÑ¾­´¦Àí£¬ËùÒÔ²»ÔÙ´¦Àí£¬Ö±½ÓÉ¾³ı¡£
-         #¸üĞÂ·¢ËÍ×´Ì¬
+         #è¡¨ç¤ºæœ€è¿‘æœ‰ç›¸åŒçš„è®°å½•å·²ç»å¤„ç†ï¼Œæ‰€ä»¥ä¸å†å¤„ç†ï¼Œç›´æ¥åˆ é™¤ã€‚
+         #æ›´æ–°å‘é€çŠ¶æ€
          #&UpdateSMSState2MySQL($res->{'send_id'}, 4);
-         #ÒÆ¶¯Êı¾İµ½·¢ËÍÀúÊ·±í sendqueue_history
+         #ç§»åŠ¨æ•°æ®åˆ°å‘é€å†å²è¡¨ sendqueue_history
          &CopySendQueueDate2SendHistory($res->{'send_id'});
          &DeleteRecordFromMySQL($res->{'send_id'});
          #continue;
          next;
        }
 
-      #Èç¹û×Ö¶ÎphoneºÍrealnameºÍÏÈÇ°µÄ¼ÇÂ¼ÏàÍ¬£¬Ôò¸üĞÂÊ±¼ä£¬·ñÔò¸üĞÂÕû¸ö¼ÇÂ¼¡£
+      #å¦‚æœå­—æ®µphoneå’Œrealnameå’Œå…ˆå‰çš„è®°å½•ç›¸åŒï¼Œåˆ™æ›´æ–°æ—¶é—´ï¼Œå¦åˆ™æ›´æ–°æ•´ä¸ªè®°å½•ã€‚
       if ( $oldphone == $resphone && $oldrealname == $resrealname ) {
             $oldtime = $restime;
       }else {
@@ -316,7 +313,7 @@ sub CheckNewMessageFromMySQL1 {
            $oldtime = $restime;
       }
       
-      #Ã»ÓĞ¹ú¼Ò±íÊ¾Ôò¼ÓÈë¹ú¼Ò±íÊ¾¡£
+      #æ²¡æœ‰å›½å®¶è¡¨ç¤ºåˆ™åŠ å…¥å›½å®¶è¡¨ç¤ºã€‚
       $phone = $res->{'phone'};  
       if (index($phone, '+86', 0) == -1){
           $phone = "+86".$phone;
@@ -328,7 +325,7 @@ sub CheckNewMessageFromMySQL1 {
       $curlencontent = 0;
       
       do{
-       #¸üĞÂ×´Ì¬ÎªÕıÔÚ·¢ËÍÖĞ...
+       #æ›´æ–°çŠ¶æ€ä¸ºæ­£åœ¨å‘é€ä¸­...
         &UpdateSMSState2MySQL($res->{'send_id'}, 4);
         &Debug(2, "src content length is  ".length($res->{'content'}));
         my $offset = 0;
@@ -339,7 +336,7 @@ sub CheckNewMessageFromMySQL1 {
         if (length($res->{'content'}) > 70 )
          {
           $srclencontent = length($res->{'content'});
-          #¶ÌĞÅÄÚÈİ³¬¹ı70¸ö×Ö·û.
+          #çŸ­ä¿¡å†…å®¹è¶…è¿‡70ä¸ªå­—ç¬¦.
           #&Debug(2, "Setting the max length limit ( $SMS->{SplitFlag} )");
           do{
              #print("offset $offset, total length ". length($res->{'content'}));
@@ -356,7 +353,7 @@ sub CheckNewMessageFromMySQL1 {
            $content = $res->{'content'};
            $sendstatus = &OutSendSMSMessage({To => $phone, Text => $content});
         }
-        #¼ÙÈç·¢ËÍÊ§°ÜÔòÅĞ¶ÏÖØÊÔ´ÎÊı
+        #å‡å¦‚å‘é€å¤±è´¥åˆ™åˆ¤æ–­é‡è¯•æ¬¡æ•°
         if (!$sendstatus) {
            $retrycounter ++;
            sleep 3;
@@ -365,9 +362,9 @@ sub CheckNewMessageFromMySQL1 {
        }until ( $sendstatus || ($retrycounter > $res->{'sendcounter'} ))
        
 
-       #¸üĞÂ·¢ËÍ×´Ì¬
+       #æ›´æ–°å‘é€çŠ¶æ€
        &UpdateSMSState2MySQL($res->{'send_id'}, ($sendstatus ? 1: 2));
-       #ÒÆ¶¯Êı¾İµ½·¢ËÍÀúÊ·±í sendqueue_history
+       #ç§»åŠ¨æ•°æ®åˆ°å‘é€å†å²è¡¨ sendqueue_history
        &CopySendQueueDate2SendHistory($res->{'send_id'});
        &DeleteRecordFromMySQL($res->{'send_id'});
     }
@@ -376,14 +373,14 @@ sub CheckNewMessageFromMySQL1 {
 }
 
 
-#¶Ï¿ªMySQLÊı¾İ¿â
+#æ–­å¼€MySQLæ•°æ®åº“
 sub DisconnectMySQL {
   if ($dbh) {
     $dbh->disconnect();
   }
 }
 
-#¿½±´·¢ËÍÊı¾İµ½ÀúÊ·±í
+#æ‹·è´å‘é€æ•°æ®åˆ°å†å²è¡¨
 sub CopySendQueueDate2SendHistory {
     die "Connect MySQL database Error ! \n" unless $dbh;
     &Debug(1, "copying current record to sendqueue_history  table!");
@@ -399,7 +396,7 @@ sub CopySendQueueDate2SendHistory {
     $sth->finish();
 }
 
-#É¾³ı¼ÇÂ¼
+#åˆ é™¤è®°å½•
 sub DeleteRecordFromMySQL {
    die "Connect MySQL database Error !\n" unless $dbh;
    my $send_id = shift();
@@ -417,7 +414,7 @@ sub UpdateSMSState2MySQL {
    $sth->finish();
 }
 
-#³õÊ¼»¯¶ÌĞÅÉè±¸
+#åˆå§‹åŒ–çŸ­ä¿¡è®¾å¤‡
 sub PrepareModem {
     $cu->send_slow(0.1, "$SMS->{ModemInit}\r");
     $cu->expect(10, "OK") or &Abort("Cannot Initialize GSM Modem!");
@@ -434,7 +431,7 @@ sub Abort {
    print "\n";
 }
 
-#¼ì²éÉè±¸µÄpinÖµ
+#æ£€æŸ¥è®¾å¤‡çš„pinå€¼
 sub ModemCheckPIN {
     &Debug(1, "Checking PIN Status");
     $cu->send_slow(0.1, "AT+CPIN?\r");
@@ -449,7 +446,7 @@ sub ModemCheckPIN {
     &Abort("Incorrect PIN!") if $cu->exp_match eq "ERROR";
     &Debug(2, "PIN Accepted!");
 }
-#¼ì²éÉè±¸µÄ×¢²áÇé¿ö
+#æ£€æŸ¥è®¾å¤‡çš„æ³¨å†Œæƒ…å†µ
 sub ModemCheckReg {
     my $TRIES = 5;
     &Debug(1, "Checking Network Registration Status");
@@ -473,7 +470,7 @@ sub ModemCheckReg {
         unless $IsRegd;
 }
 
-#½ÓÊÕ¶ÌĞÅ
+#æ¥æ”¶çŸ­ä¿¡
 sub GetMessages {
 	print $cu "AT+CMGF=1\r";
 	&ModemExpect(60,"OK");
@@ -486,7 +483,7 @@ sub GetMessages {
 	map { &InRetrieveMsg($_) } @aMsgID;
 	}
 
-#¶ÁÈ¡ÊÕµ½µÄ¶ÌĞÅ
+#è¯»å–æ”¶åˆ°çš„çŸ­ä¿¡
 sub InRetrieveMsg {
     my $MsgID = shift;
     &Debug (2, "Retrieving Incoming Message No. $MsgID");
@@ -612,7 +609,7 @@ sub SendMessages {
         map { &OutMultiAddr("$SMS->{OutDir}/$_")} @adir;
 }
 
-#´ÓÊı¾İ¿âÖĞ·¢ËÍ¶ÌÏûÏ¢
+#ä»æ•°æ®åº“ä¸­å‘é€çŸ­æ¶ˆæ¯
 sub SendMessagesFromMySQL {
   die "Connect MySQL database Error !\n" unless $dbh;
   &CheckNewMessageFromMySQL();
